@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Jogo das palavras</title>
+</head>
+<body>
+<br>
+<h1 align="center">Jogo das palavras</h1>
+<br>
+<div class="container" >
+    <table class="table table-bordered" style="display: flex;align-items: center; border:none" >
+
+    <tr>
+        {% for i in letters %}
+        {% if i in list_db_letters %}
+        <td class="col" style="font-size:30pt; width:100px;" >{{i|upper}}</td>
+        {% else %}
+        <td class="col " style="font-size:30pt; width:100px;" >{{"-"|upper}}</td>
+        {% endif %}
+        {%endfor%}
+    </tr>
+
+    </table>
+</div>
+<br>
+<div class="container">
+<form class="form-inline" method="post" action=".">
+    {% csrf_token %}
+  <div class="form-group mx-sm-3">
+    <label for={{form.letter.id_for_label}} class="sr-only">{{form.letter.label}}</label>
+    {{form.letter}}
+  </div>
+    <div  class="align-bottom">
+     <button type="submit" class="btn btn-primary mb-2">Enviar</button>
+    <a class="btn btn-primary" href="{% url 'new'%}" role="button">Nova Palavra</a>
+  </div>
+</form>
+    {% for message in messages %}
+    <div class="alert alert-danger">
+
+          {{message}}
+
+    </div>
+    {% endfor %}
+</div>
+</div>
+</body>
+</html>
